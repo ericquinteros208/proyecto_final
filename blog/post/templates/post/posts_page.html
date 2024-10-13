@@ -1,48 +1,41 @@
 {% extends 'main.html' %}
 
 {% block content %}
-
-           
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          
-        </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Buscar</button>
-        </form>
-      </div>
-    </div>
-  </nav>
-
+<nav>
   <div class="container">
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Action</a></li>
+      <li><a class="dropdown-item" href="#">Another action</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item" href="#">Something else here</a></li>
+    </ul>
+    
+    <form class="d-flex" role="search">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Buscar</button>
+    </form>
+  </div>
+</nav>
 
-    <div class="row row-cols-auto">
-    {% for post in posts%}
-
-    <div class="col"> 
-      <div class="card" style="width: 15rem;">
-        <img src="{{post.imagen_seccion.url}}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">{{post.titulo}}</h5>
-          <p class="card-text">{{post.descripcion}}</p>
-          <a href="{% url 'post' post.id %}" class="btn btn-primary">Ver más</a>
+<body>
+  <div class="container">
+    <div class="row">
+        {% for categoria in categorias %}
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ categoria.imagen_seccion.url }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ categoria.name }}</h5>
+                    <p class="card-text">{{ categoria.descripcion }}</p>
+                    <a href="{% url 'post_list' categoria.id %}" class="btn btn-primary">Ver más</a>
+                </div>
+            </div>
         </div>
-      </div>
+        {% endfor %}
     </div>
-  </div>
-  </div>
-  
-  {% endfor %}
-
-
-
-{% endblock content %}
+</div>
+</body>
+{% endblock %}
 
 
 
