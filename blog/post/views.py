@@ -32,6 +32,28 @@ def formulario(request):
     return render (request , 'post/form_post.html', context)
 
 
+def post_detail(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    return render(request, 'post/post_detail.html', {'post': post})
+
+
+def buscar_posts(request):
+    query = request.GET.get('q')
+    resultados = Post.objects.filter(titulo__icontains=query) if query else Post.objects.all()
+    
+    return render(request, 'post/buscar_resultados.html', {'resultados': resultados, 'query': query})
+
+
+
+def buscar_categorias(request):
+    query = request.GET.get('q')  # Obtiene la consulta de búsqueda
+    if query:
+        categorias = Category.objects.filter(name__icontains=query)  # Filtra por nombre
+    else:
+        categorias = Category.objects.all()  # Devuelve todas las categorías si no hay consulta
+    return render(request, 'post/posts_page.html', {'categorias': categorias})
+
+
 
 
 

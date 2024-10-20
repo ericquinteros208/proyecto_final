@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Resultados de búsqueda</h1>
+    {% if query %}
+        <p class="lead">Resultados para: "<strong>{{ query }}</strong>"</p>
+        {% if resultados %}
+            <div class="row">
+                {% for post in resultados %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <img src="{{ post.imagen_seccion.url }}" alt="{{ post.titulo }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{% url 'post_detail' post.id %}" class="text-decoration-none text-dark">{{ post.titulo }}</a>
+                                </h5>
+                                <p class="card-text">{{ post.descripcion|truncatewords:20 }}</p>
+                                <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Ver más</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                No se encontraron resultados.
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            Introduce un término de búsqueda.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

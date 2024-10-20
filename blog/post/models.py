@@ -17,6 +17,10 @@ class Post(models.Model):
     imagen_seccion = models.ImageField(null=True, blank=True, default="default_image.png")
     categoria = models.ForeignKey(Category, on_delete=models.CASCADE, default=None)  # Cambia esto temporalmente
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+    horario_atencion = models.CharField(max_length=100, blank=True)  # Horario de atención
+    ubicacion = models.CharField(max_length=255, blank=True)  # Ubicación
+    servicios = models.TextField(blank=True)  # Servicios ofrecidos (opcional)
+
 
     def __str__(self):
         return self.titulo

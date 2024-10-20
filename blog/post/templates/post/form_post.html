@@ -1,25 +1,29 @@
 {% extends 'main.html' %}
+{% load bootstrap_filters %}
 
 {% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Agrega tu emprendimiento</h2>
 
-<form method="POST" enctype="multipart/form-data">
-    <div class="container"> 
-    {% csrf_token %}
-    {% for field in form %}
-    {{field.label}}
-    <br>
-    {{field}}
-    <br>
-    {% endfor %}
-    <br>
-    <button type="submit" class="btn btn-primary">Agregrar</button>
-    </div>
-</form>
-
-
-
-
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            {% for field in form %}
+                <div class="mb-3 col-md-6">
+                    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                    {{ field|add_class:"form-control" }} <!-- Aquí se aplica el filtro add_class -->
+                    
+                    {% if field.errors %}
+                        <div class="text-danger">
+                            {{ field.errors }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Agregar</button>
+    </form>
+</div>
 {% endblock content %}
-
 
 

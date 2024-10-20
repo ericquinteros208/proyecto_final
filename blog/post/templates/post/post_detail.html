@@ -1,0 +1,27 @@
+{% extends 'main.html' %}
+{% load bootstrap_filters %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">{{ post.titulo }}</h2>
+
+    <div class="card">
+        <img src="{{ post.imagen_seccion.url }}" class="card-img-top img-fluid" alt="{{ post.titulo }}" style="max-height: 300px; width: auto; object-fit: cover;">
+        <div class="card-body">
+            <h5 class="card-title">Descripción</h5>
+            <p class="card-text">{{ post.descripcion }}</p>
+            
+            <h5 class="card-title">Horario de Atención</h5>
+            <p class="card-text">{{ post.horario_atencion|default:"No especificado" }}</p>
+            
+            <h5 class="card-title">Ubicación</h5>
+            <p class="card-text">{{ post.ubicacion|default:"No especificada" }}</p>
+            
+            <h5 class="card-title">Servicios Ofrecidos</h5>
+            <p class="card-text">{{ post.servicios|default:"No especificados" }}</p>
+            
+            <a href="{% url 'home' %}" class="btn btn-primary">Regresar</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}

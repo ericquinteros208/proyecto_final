@@ -1,6 +1,16 @@
 {% extends 'main.html' %}
 
 {% block content %}
+<head>
+  <style>
+    .post-image {
+        width: 100%;
+        height: 250px;     /* Ajusta el tamaño para todas las imágenes */
+        object-fit: cover; /* Hace que las imágenes mantengan proporciones */
+    }
+  </style>
+</head>
+
 <nav>
   <div class="container">
     <ul class="dropdown-menu">
@@ -9,9 +19,10 @@
       <li><hr class="dropdown-divider"></li>
       <li><a class="dropdown-item" href="#">Something else here</a></li>
     </ul>
-    
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+
+    <!-- Formulario para buscar en categorías -->
+    <form class="d-flex" role="search" method="GET" action="{% url 'buscar_categorias' %}">
+      <input class="form-control me-2" type="search" placeholder="Buscar en categorías" aria-label="Search" name="q">
       <button class="btn btn-outline-success" type="submit">Buscar</button>
     </form>
   </div>
@@ -20,10 +31,13 @@
 <body>
   <div class="container">
     <div class="row">
+        <!-- Mostrar categorías con su imagen, descripción y enlace -->
         {% for categoria in categorias %}
         <div class="col-md-4">
             <div class="card" style="width: 18rem;">
-                <img src="{{ categoria.imagen_seccion.url }}" class="card-img-top" alt="...">
+                {% if categoria.imagen_seccion %}
+                  <img src="{{ categoria.imagen_seccion.url }}" class="card-img-top post-image" alt="{{ categoria.name }}">
+                {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ categoria.name }}</h5>
                     <p class="card-text">{{ categoria.descripcion }}</p>
@@ -31,13 +45,11 @@
                 </div>
             </div>
         </div>
+        {% empty %}
+        <p>No se encontraron categorías.</p>
         {% endfor %}
     </div>
-</div>
+  </div>
 </body>
+
 {% endblock %}
-
-
-
-  
-
